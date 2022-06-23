@@ -1,21 +1,17 @@
-const List = require("../models/list.model");
 const Favs = require("../models/fav.model");
+const Lists = require("../models/list.model");
 
 module.exports = {
   async create(req, res) {
     try {
-      const idUser = req.user;
       const { id } = req.params;
-      console.log("UserId: ", idUser, "id: ", id);
-      const list = await List.findById(id);
-      console.log("User: ", list, "req: ", req.body);
+      const list = await Lists.findById(id);
       if (!list) {
         throw new Error("Invalid list");
       }
-
       const fav = await Favs.create({
         ...req.body,
-        list: list._id,
+        list: list,
       });
       console.log("Fav: ", fav);
       await list.favs.push(fav);

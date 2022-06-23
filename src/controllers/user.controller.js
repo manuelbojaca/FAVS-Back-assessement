@@ -17,16 +17,11 @@ module.exports = {
   async login(req, res) {
     try {
       const { email, password } = req.body;
-      console.log("user ", email);
       const user = await User.findOne({ email: email });
-      console.log("User2 ", user);
       if (!user) {
-        console.log("New if ");
         const encPassword = await bcrypt.hash(password, 8);
         const newUser = { email: email, password: encPassword };
-        console.log("New if ");
         user = await User.create(newUser);
-        console.log("New user created ", user);
       }
       const isValid = await bcrypt.compare(password, user.password);
       if (!isValid) {
