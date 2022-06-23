@@ -1,22 +1,30 @@
 const { Schema, model, models } = require("mongoose");
 
-const userSchema = new Schema(
+const favsSchema = new Schema(
   {
-    title: {
+    name: {
       type: String,
-      required: true,
+      reuired: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
-    link: {
-      type: String,
-      required: true,
-    },
+    favs: [
+      {
+        title: {
+          type: String,
+          required: true,
+        },
+        description: {
+          type: String,
+          required: true,
+        },
+        link: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
 
-const Favs = model("User", userSchema);
+const Favs = model("Favs", favsSchema);
 module.exports = Favs;

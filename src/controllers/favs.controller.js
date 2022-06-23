@@ -5,11 +5,12 @@ const jwt = require("jsonwebtoken");
 const { sign } = require("jsonwebtoken");
 const { create } = require("./auth.controller");
 const Auth = require("../models/auth.model");
+const Favs = require("../models/favs.model");
 
 module.exports = {
   async lists(req, res) {
     try {
-      const lists = await Api.find();
+      const lists = await Favs.find();
       res.status(200).json({ message: "Lists no found", data: lists });
     } catch (err) {
       res.status(500).json(err);
@@ -19,7 +20,7 @@ module.exports = {
   async show(req, res) {
     try {
       const { id: id } = req.params;
-      const list = await Api.findById(id);
+      const list = await Favs.findById(id);
       res.status(200).json({ message: "List found", data: list });
     } catch {
       res.status(500).json(err);
@@ -35,10 +36,11 @@ module.exports = {
       if (!user) {
         throw new Error("Invalid user");
       }
-      const list = await Api.create({
+      const list = await Favs.create({
         ...req.body,
         user: user,
       });
+      await user.save({ validateBeforeSave: false });
       console.log("List: ", list);
       res.status(201).json({ message: "List created", data: list });
     } catch (err) {

@@ -5,6 +5,24 @@ const jwt = require("jsonwebtoken");
 const { sign } = require("jsonwebtoken");
 
 module.exports = {
+  async list(req, res) {
+    try {
+      const users = await Auth.find();
+      res.status(200).json({ message: "Users found", data: users });
+    } catch (err) {
+      res.status(404).json({ message: "User not found" });
+    }
+  },
+  async show(req, res) {
+    try {
+      const id = req.user;
+      console.log("este es el id", id);
+      const user = await Auth.findById(id).populate("lists");
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  },
   async create(req, res) {
     try {
       const data = req.body;
