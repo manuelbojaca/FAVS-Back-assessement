@@ -40,7 +40,9 @@ module.exports = {
         ...req.body,
         user: user,
       });
+      await user.lists.push(list);
       await user.save({ validateBeforeSave: false });
+
       console.log("List: ", list);
       res.status(201).json({ message: "List created", data: list });
     } catch (err) {
