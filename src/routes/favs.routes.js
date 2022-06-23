@@ -1,8 +1,6 @@
 const router = require("express").Router();
-const userController = require("../controllers/auth.controller");
-const { auth } = require("../utils/auth");
+const favsController = require("../controllers/favs.controller");
 
-router.route("/local/login").post(userController.login);
-router.route("/local/logup").post(userController.create);
+router.route("/favs").get(favsController.lists);
 
 module.exports = router;
