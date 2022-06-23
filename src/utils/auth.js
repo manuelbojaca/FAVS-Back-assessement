@@ -4,7 +4,7 @@ exports.auth = (req, res, next) => {
   try {
     // En el back minuscula, en el front mayuscula
     const { authorization } = req.headers;
-
+    console.log("Auth: ", authorization);
     //Para verificar que trae el encabezado
     if (!authorization) {
       throw new Error("expired session auth");
@@ -19,11 +19,12 @@ exports.auth = (req, res, next) => {
     }
 
     //Reversión de la codificación del token
-    const { id, email} = jwt.verify(token, process.env.SECRET_KEY);
+    const { id, email } = jwt.verify(token, process.env.SECRET_KEY);
+    console.log("UserCre: ", id, "_", email);
 
     //Mutar el objeto req en el user (req.user) para poder acceder a el en cualquier parte
     req.user = id;
-    req.email=email;
+    req.email = email;
     next();
   } catch (err) {
     res.status(401).json({ message: err.message });
