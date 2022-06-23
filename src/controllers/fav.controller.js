@@ -5,24 +5,26 @@ module.exports = {
   async create(req, res) {
     try {
       const idUser = req.user;
-      const { id: id } = req.params;
+      const { id } = req.params;
       console.log("UserId: ", idUser, "id: ", id);
       const list = await List.findById(id);
       console.log("User: ", list, "req: ", req.body);
-      if (!user) {
-        throw new Error("Invalid user");
+      if (!list) {
+        throw new Error("Invalid list");
       }
+
       const fav = await Favs.create({
         ...req.body,
-        user: user,
+        list: list._id,
       });
+      console.log("Fav: ", fav);
       await list.favs.push(fav);
       await list.save({ validateBeforeSave: false });
 
       console.log("List: ", list);
-      res.status(201).json({ message: "List created", data: list });
+      res.status(201).json({ message: "Fav created", data: list });
     } catch (err) {
-      res.status(400).json({ message: "List create fail", data: err });
+      res.status(400).json({ message: "Fav create fail", data: err });
     }
   },
 };

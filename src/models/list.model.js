@@ -8,7 +8,7 @@ const listsSchema = new Schema(
     },
     favs: [
       {
-        type: [{ type: Schema.Types.ObjectId, ref: "Favs" }],
+        type: { type: Schema.Types.ObjectId, ref: "Favs" },
         required: false,
       },
     ],
