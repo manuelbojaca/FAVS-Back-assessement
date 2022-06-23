@@ -1,16 +1,10 @@
-const Api = require("../models/auth.model");
-
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { sign } = require("jsonwebtoken");
-const { create } = require("./auth.controller");
-const Auth = require("../models/auth.model");
-const Favs = require("../models/favs.model");
+const User = require("../models/user.model");
+const List = require("../models/list.model");
 
 module.exports = {
   async lists(req, res) {
     try {
-      const lists = await Favs.find();
+      const lists = await List.find();
       res.status(200).json({ message: "Lists no found", data: lists });
     } catch (err) {
       res.status(500).json(err);
@@ -20,7 +14,7 @@ module.exports = {
   async show(req, res) {
     try {
       const { id: id } = req.params;
-      const list = await Favs.findById(id);
+      const list = await List.findById(id);
       res.status(200).json({ message: "List found", data: list });
     } catch {
       res.status(500).json(err);
@@ -31,14 +25,14 @@ module.exports = {
     try {
       const idUser = req.user;
       console.log("UserId: ", idUser);
-      const user = await Auth.findById(idUser);
+      const user = await User.findById(idUser);
       console.log("User: ", user, "req: ", req.body);
       if (!user) {
         throw new Error("Invalid user");
       }
-      const list = await Favs.create({
+      const list = await List.create({
         ...req.body,
-        user: user,
+        user: user._id,
       });
       await user.lists.push(list);
       await user.save({ validateBeforeSave: false });
