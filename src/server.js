@@ -6,5 +6,5 @@ const port = process.env.PORT;
 connect();
 
 app.listen(port, () => {
-  console.log("App running OK");
+  console.log(`Server listening on http://localhost:${port}`);
 });

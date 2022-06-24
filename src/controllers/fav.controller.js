@@ -11,7 +11,7 @@ module.exports = {
       }
       const fav = await Favs.create({
         ...req.body,
-        list: list,
+        list: list._id,
       });
       console.log("Fav: ", fav);
       await list.favs.push(fav);
