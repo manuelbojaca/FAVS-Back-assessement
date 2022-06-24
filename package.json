@@ -2,10 +2,12 @@
   "name": "favs-api",
   "version": "1.0.0",
   "description": "back-end create with mongoose",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "test": "cross-env MONGO_CONNECTION=mongodb+srv://manuel:Clonairbnb123@cluster0.haw5u.mongodb.net/?retryWrites=true&w=majority jest --detectOpenHandles",
+    "test:coverage": "npm test -- --coverage",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +24,12 @@
   },
   "homepage": "https://github.com/manueliciouss/FAVS-Back-assessement#readme",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
-    "nodemon": "^2.0.16"
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16",
+    "superagent": "^7.1.6",
+    "supertest": "^6.2.3"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

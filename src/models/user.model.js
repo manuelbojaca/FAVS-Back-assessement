@@ -11,12 +11,12 @@ const userSchema = new Schema(
       required: true,
     },
     lists: {
-      type: [{ type: Schema.Types.ObjectId, ref: "List" }],
+      type: [{ type: Schema.Types.ObjectId, ref: "Lists" }],
       required: false,
     },
   },
   { timestamps: true }
 );
 
-const Auth = model("User", userSchema);
-module.exports = Auth;
+const User = model("User", userSchema);
+module.exports = User;

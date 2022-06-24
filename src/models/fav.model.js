@@ -1,6 +1,6 @@
 const { Schema, model, models } = require("mongoose");
 
-const userSchema = new Schema(
+const favsSchema = new Schema(
   {
     title: {
       type: String,
@@ -18,5 +18,5 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-const User = model("User", userSchema);
-module.exports = User;
+const Favs = model("Favs", favsSchema);
+module.exports = Favs;
